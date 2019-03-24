@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rock Paper Scissors</title>
+	 <link href='rock.css' rel='stylesheet'>
+	 <link href="https://fonts.googleapis.com/css?family=Sniglet" rel="stylesheet">
+	
+</head>
+<body>
+<header>
+	<h1>ROCK, PAPER, SCISSORS</h1>
+</header>
+<div class= 'subheader'>
+	<h2>~ Select one of the buttons below ~</h2>
+</div>
+
+
+<div class= "container">
+	<div class= choice id ='rock'>
+		<button name= 'rock' type="submit" value= 'rock'><img  src="rock.png" alt="rock" ></button>
+	</div>
+	<div class= choice id= "paper" >
+		<button name= 'paper' type="submit" value= 'paper'><img src="paper.png" alt="paper" ></button>
+		
+	</div>
+	<div class= choice id= "scissors">
+		<button name= 'scissors' type="submit" value= 'scissors'><img src="scissors.png" alt="scissors" ></button>
+		
+	</div>
+
+	<div class= 'yourResult'>
+	
+	
+	</div>
+	<div class= 'computerResult'>
+	
+	
+	</div>
+	<div class= 'winner' id ='winner'>
+		
+	</div>
+	<div class= 'playAgain'>
+		<button type="submit" value= 'playAgain'>
+			<h3>Play Again</h3>
+		</button>
+		
+	</div>
+	
+	
+</div>
+<script src= 'jquery.js'></script>
+
+
+<script type="text/javascript">
+
+ // <!--Prompt for Choice -->
+
+function getChoice () { 
+
+	$('.playAgain button').hide();
+
+	$('#rock button').click (function (e){
+		e.preventDefault();
+		$('#rock').hide();
+	 	$('#paper').hide();
+	 	$('#scissors').hide();
+	 	$('.subheader').hide();
+		optionSelected = 'rock';
+		console.log(optionSelected);
+		return playGame();	
+		
+	}) 
+		
+	
+	$('#paper button').click(function(e){
+		e.preventDefault();
+		$('#rock').hide();
+	 	$('#paper').hide();
+	 	$('#scissors').hide();
+	 	$('.subheader').hide();
+		optionSelected = 'paper';
+		console.log(optionSelected);
+		return playGame();
+		
+	})
+	$('#scissors button').click(function(e){
+		e.preventDefault();
+		$('#rock').hide();
+	 	$('#paper').hide();
+	 	$('#scissors').hide();
+	 	$('.subheader').hide();
+		optionSelected = 'scissors';
+		console.log(optionSelected);
+		return playGame();
+		
+		
+	}) 
+	
+
+} 
+// <!-- Print User Choice --!>
+
+function userChoice (){
+	let $yourSelection = ("<h2> You picked:  " + optionSelected.toUpperCase() + "    </h2>");
+	 $('.yourResult').append($yourSelection);
+	 return computerChoice ();
+}
+
+
+
+
+
+ // <!-- Computer Choice --!>
+
+function computerChoice () {
+	computerAnswer = Math.floor(Math.random() * 2);
+	 if (computerAnswer === 0) {
+ 	 return 'rock';
+
+ } else if (computerAnswer === 1) { 
+ 	 return 'paper';
+ } else {
+ 	return 'scissors';
+ }
+}
+
+ // <!-- Print computer choice --!>
+
+function autoChoice(){
+	let $computerSelection = (" </br> </br> <h2> The computer picked:  " + computerSymbol.toUpperCase() + "   </h2>");
+	$('.computerResult').append($computerSelection);
+
+}
+
+// <!-- Find winner -->
+
+function whoWins (selection, computerSymbol) {
+	if (computerSymbol === selection ) {
+		let $winner = ("<h2> It's a tie. </h2> ");
+		$('.winner').append($winner);
+		$('.winner').show();
+	} else if (( computerSymbol === 'rock' &&  selection === 'scissors' ) || (computerSymbol === 'scissors' &&  selection === 'paper' ) || (computerSymbol === 'paper' &&  selection === 'rock')) {
+		let $winner = ("<h2> You lose :( </h2> ");
+		$('.winner').append($winner);
+		$('.winner').show();
+	} else {
+		let $winner = ("<h2> You win! </h2> ");
+		$('.winner').append($winner);
+		$('.winner').show();
+	}
+
+}
+
+
+//<--- Play the Game-->
+
+
+function playGame(){
+setTimeout(userChoice, 500);
+ computerSymbol = computerChoice(); 
+ setTimeout(autoChoice, 1500);
+
+setTimeout(function() { whoWins(optionSelected, computerSymbol) }, 2500);
+setTimeout(roundTwo, 3500);
+
+}
+
+
+//<--- Play again-->
+
+function roundTwo(){
+
+	$('.playAgain button').show();
+
+	$('.playAgain button').click (function (){
+		
+		location.reload();
+	 	
+		return getChoice();	
+})
+}
+
+//<--- Start -->
+
+getChoice();
+
+
+
+
+
+
+
+
+
+
+</script>
+
+
+
+</body>
+</html>
